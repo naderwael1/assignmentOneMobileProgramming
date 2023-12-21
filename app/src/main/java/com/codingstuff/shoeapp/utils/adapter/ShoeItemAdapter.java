@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.codingstuff.shoeapp.R;
 import com.codingstuff.shoeapp.utils.model.ShoeItem;
 
+import java.text.CollationElementIterator;
 import java.util.List;
 
 public class ShoeItemAdapter extends RecyclerView.Adapter<ShoeItemAdapter.ShoeItemViewHolder> {
@@ -39,6 +40,8 @@ public class ShoeItemAdapter extends RecyclerView.Adapter<ShoeItemAdapter.ShoeIt
         holder.shoeBrandNameTv.setText(shoeItem.getShoeBrandName());
         holder.shoePriceTv.setText(String.valueOf(shoeItem.getShoePrice()));
         holder.shoeImageView.setImageResource(shoeItem.getShoeImage());
+        holder.eachShoeColorTv.setText(shoeItem.getColor());
+        holder.eachShoeSizeTv.setText(shoeItem.getSize());
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,6 +68,8 @@ public class ShoeItemAdapter extends RecyclerView.Adapter<ShoeItemAdapter.ShoeIt
     }
 
     public class ShoeItemViewHolder extends RecyclerView.ViewHolder{
+        TextView eachShoeColorTv;
+        TextView eachShoeSizeTv;
         private ImageView shoeImageView , addToCartBtn;
         private TextView shoeNameTv, shoeBrandNameTv, shoePriceTv;
         private CardView cardView;
@@ -77,6 +82,10 @@ public class ShoeItemAdapter extends RecyclerView.Adapter<ShoeItemAdapter.ShoeIt
             shoeImageView = itemView.findViewById(R.id.eachShoeIv);
             shoeBrandNameTv = itemView.findViewById(R.id.eachShoeBrandNameTv);
             shoePriceTv = itemView.findViewById(R.id.eachShoePriceTv);
+            eachShoeColorTv = itemView.findViewById(R.id.eachShoeColorTv);
+            eachShoeSizeTv = itemView.findViewById(R.id.eachShoeSizeTv);
+            eachShoeColorTv = itemView.findViewById(R.id.eachShoeColorTv);
+            eachShoeSizeTv = itemView.findViewById(R.id.eachShoeSizeTv);
         }
     }
 

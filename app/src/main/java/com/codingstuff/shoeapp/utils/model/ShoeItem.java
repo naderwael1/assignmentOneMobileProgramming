@@ -5,20 +5,25 @@ import android.os.Parcelable;
 
 public class ShoeItem implements Parcelable {
 
-    private String shoeName, shoeBrandName;
+    private String shoeName, shoeBrandName,color,size;
     private int shoeImage;
     private double shoePrice;
 
-    public ShoeItem(String shoeName, String shoeBrandName, int shoeImage, double shoePrice) {
+    public ShoeItem(String shoeName, String shoeBrandName, int shoeImage, double shoePrice, String color, String size) {
         this.shoeName = shoeName;
         this.shoeBrandName = shoeBrandName;
         this.shoeImage = shoeImage;
         this.shoePrice = shoePrice;
+        this.color = color;
+        this.size = size;
     }
+
 
     protected ShoeItem(Parcel in) {
         shoeName = in.readString();
         shoeBrandName = in.readString();
+        color = in.readString();
+        size = in.readString();
         shoeImage = in.readInt();
         shoePrice = in.readDouble();
     }
@@ -38,7 +43,6 @@ public class ShoeItem implements Parcelable {
     public String getShoeName() {
         return shoeName;
     }
-
     public void setShoeName(String shoeName) {
         this.shoeName = shoeName;
     }
@@ -66,6 +70,21 @@ public class ShoeItem implements Parcelable {
     public void setShoePrice(double shoePrice) {
         this.shoePrice = shoePrice;
     }
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
+    }
 
     @Override
     public int describeContents() {
@@ -76,6 +95,8 @@ public class ShoeItem implements Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(shoeName);
         parcel.writeString(shoeBrandName);
+        parcel.writeString(color);
+        parcel.writeString(size);
         parcel.writeInt(shoeImage);
         parcel.writeDouble(shoePrice);
     }
