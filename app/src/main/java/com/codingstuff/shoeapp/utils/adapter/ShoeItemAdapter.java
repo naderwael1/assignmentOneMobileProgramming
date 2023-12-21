@@ -3,7 +3,9 @@ package com.codingstuff.shoeapp.utils.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,16 +22,20 @@ public class ShoeItemAdapter extends RecyclerView.Adapter<ShoeItemAdapter.ShoeIt
 
     private List<ShoeItem> shoeItemList;
     private ShoeClickedListeners shoeClickedListeners;
+    private String[] sizeOptions = {"Small ", "Midium", "Larg", "Very Larg", "xxxlarg"};
+
     public ShoeItemAdapter(ShoeClickedListeners shoeClickedListeners){
         this.shoeClickedListeners = shoeClickedListeners;
     }
+
     public void setShoeItemList(List<ShoeItem> shoeItemList){
         this.shoeItemList = shoeItemList;
     }
+
     @NonNull
     @Override
     public ShoeItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.each_shoe , parent , false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.each_shoe, parent, false);
         return new ShoeItemViewHolder(view);
     }
 
@@ -41,7 +47,17 @@ public class ShoeItemAdapter extends RecyclerView.Adapter<ShoeItemAdapter.ShoeIt
         holder.shoePriceTv.setText(String.valueOf(shoeItem.getShoePrice()));
         holder.shoeImageView.setImageResource(shoeItem.getShoeImage());
         holder.eachShoeColorTv.setText(shoeItem.getColor());
-        holder.eachShoeSizeTv.setText(shoeItem.getSize());
+
+        // Set the adapter for the Spinner
+        ArrayAdapter<String> sizeAdapter = new ArrayAdapter<>(holder.itemView.getContext(), android.R.layout.simple_spinner_item, sizeOptions);
+        sizeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        holder.eachShoeSizeSpinner.setAdapter(sizeAdapter);
+
+        // Find the position of the size in sizeOptions
+        int sizePosition = getPositionForSize(shoeItem.getSize());
+
+        // Set the selection for the Spinner
+        holder.eachShoeSizeSpinner.setSelection(sizePosition);
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,22 +76,26 @@ public class ShoeItemAdapter extends RecyclerView.Adapter<ShoeItemAdapter.ShoeIt
 
     @Override
     public int getItemCount() {
-        if (shoeItemList == null){
-            return 0;
-        }else{
-            return shoeItemList.size();
-        }
+        return shoeItemList != null ? shoeItemList.size() : 0;
     }
 
-    public class ShoeItemViewHolder extends RecyclerView.ViewHolder{
-        TextView eachShoeColorTv;
-        TextView eachShoeSizeTv;
-        private ImageView shoeImageView , addToCartBtn;
-        private TextView shoeNameTv, shoeBrandNameTv, shoePriceTv;
+    private int getPositionForSize(String size) {
+        for (int i = 0; i < sizeOptions.length; i++) {
+            if (sizeOptions[i].equals(size)) {
+                return i;
+            }
+        }
+        return 0; // Default position if size is not found
+    }
+
+    public class ShoeItemViewHolder extends RecyclerView.ViewHolder {
+        private ImageView shoeImageView, addToCartBtn;
+        private TextView shoeNameTv, shoeBrandNameTv, shoePriceTv, eachShoeColorTv;
+        private Spinner eachShoeSizeSpinner;
         private CardView cardView;
+
         public ShoeItemViewHolder(@NonNull View itemView) {
             super(itemView);
-
             cardView = itemView.findViewById(R.id.eachShoeCardView);
             addToCartBtn = itemView.findViewById(R.id.eachShoeAddToCartBtn);
             shoeNameTv = itemView.findViewById(R.id.eachShoeName);
@@ -83,14 +103,13 @@ public class ShoeItemAdapter extends RecyclerView.Adapter<ShoeItemAdapter.ShoeIt
             shoeBrandNameTv = itemView.findViewById(R.id.eachShoeBrandNameTv);
             shoePriceTv = itemView.findViewById(R.id.eachShoePriceTv);
             eachShoeColorTv = itemView.findViewById(R.id.eachShoeColorTv);
-            eachShoeSizeTv = itemView.findViewById(R.id.eachShoeSizeTv);
-            eachShoeColorTv = itemView.findViewById(R.id.eachShoeColorTv);
-            eachShoeSizeTv = itemView.findViewById(R.id.eachShoeSizeTv);
+            eachShoeSizeSpinner = itemView.findViewById(R.id.eachShoeSizeSpinner);
         }
     }
 
-    public interface ShoeClickedListeners{
+    public interface ShoeClickedListeners {
         void onCardClicked(ShoeItem shoe);
+
         void onAddToCartBtnClicked(ShoeItem shoeItem);
     }
 }
