@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements ShoeItemAdapter.ShoeClickedListeners {
-
+    private int j;
     private RecyclerView recyclerView;
     private List<ShoeItem> shoeItemList;
     private ShoeItemAdapter adapter;
