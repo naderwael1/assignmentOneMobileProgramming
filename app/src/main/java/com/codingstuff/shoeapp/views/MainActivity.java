@@ -33,6 +33,8 @@ public class MainActivity extends AppCompatActivity implements ShoeItemAdapter.S
     private List<ShoeCart> shoeCartList;
     private CoordinatorLayout coordinatorLayout;
     private ImageView cartImageView;
+    private RecyclerView secondRecyclerView; // New RecyclerView added
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,8 @@ public class MainActivity extends AppCompatActivity implements ShoeItemAdapter.S
 
         adapter.setShoeItemList(shoeItemList);
         recyclerView.setAdapter(adapter);
+        adapter.setShoeItemList(shoeItemList); // Use the same data for both RecyclerViews
+        secondRecyclerView.setAdapter(adapter); // Use the same adapter for
 
 
         cartImageView.setOnClickListener(new View.OnClickListener() {
@@ -88,6 +92,11 @@ public class MainActivity extends AppCompatActivity implements ShoeItemAdapter.S
         recyclerView = findViewById(R.id.mainRecyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        // Initialize the second RecyclerView
+
+        secondRecyclerView = findViewById(R.id.secondRecyclerView); // Replace 'secondRecyclerView' with the correct ID
+        secondRecyclerView.setHasFixedSize(true);
+        secondRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
         adapter = new ShoeItemAdapter(this);
 
