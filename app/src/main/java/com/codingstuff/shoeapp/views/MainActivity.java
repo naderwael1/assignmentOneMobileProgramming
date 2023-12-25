@@ -71,14 +71,14 @@ public class MainActivity extends AppCompatActivity implements ShoeItemAdapter.S
     }
 
     private void setUpList() {
-        shoeItemList.add(new ShoeItem("Nice while shirt", "dress", R.drawable.shopping, 30,"red","l"));
-        shoeItemList.add(new ShoeItem("احمد عاطف", "بني ادم", R.drawable.ahmed, 00,"red","l"));
-        shoeItemList.add(new ShoeItem("Court Zoom Vapor", "Casual", R.drawable.outfittt, 18,"red","l"));
-        shoeItemList.add(new ShoeItem("Black dress", "dress", R.drawable.fostan, 16.5,"red","l"));
-        shoeItemList.add(new ShoeItem("pants", "Casual", R.drawable.bantlon, 20,"red","l"));
-        shoeItemList.add(new ShoeItem("Tag Women's chain", "accessories", R.drawable.kinga, 22,"red","l"));
-        shoeItemList.add(new ShoeItem("His pharaohs Women's chain", "accessories", R.drawable.fra3na, 12,"red","l"));
-        shoeItemList.add(new ShoeItem("His pharaohs Women's chain", "accessories", R.drawable.silsla, 15,"red","l"));
+        shoeItemList.add(new ShoeItem("Nice while shirt", "dress", R.drawable.shopping, 30,"red","l","in stock",30));
+        shoeItemList.add(new ShoeItem("احمد عاطف", "بني ادم", R.drawable.ahmed, 00,"red","l","out of stock",00));
+        shoeItemList.add(new ShoeItem("Court Zoom Vapor", "Casual", R.drawable.outfittt, 18,"red","l","in stock",30));
+        shoeItemList.add(new ShoeItem("Black dress", "dress", R.drawable.fostan, 16.5,"red","l","in stock",30));
+        shoeItemList.add(new ShoeItem("pants", "Casual", R.drawable.bantlon, 20,"red","l","in stock",30));
+        shoeItemList.add(new ShoeItem("Tag Women's chain", "accessories", R.drawable.kinga, 22,"red","l","in stock",30));
+        shoeItemList.add(new ShoeItem("His pharaohs Women's chain", "accessories", R.drawable.fra3na, 12,"red","l","in stock",30));
+        shoeItemList.add(new ShoeItem("His pharaohs Women's chain", "accessories", R.drawable.silsla, 15,"red","l","out of stock",00));
 
     }
 
@@ -117,6 +117,8 @@ public class MainActivity extends AppCompatActivity implements ShoeItemAdapter.S
         shoeCart.setShoeBrandName(shoeItem.getShoeBrandName());
         shoeCart.setShoePrice(shoeItem.getShoePrice());
         shoeCart.setShoeImage(shoeItem.getShoeImage());
+
+
 
         final int[] quantity = {1};
         final int[] id = new int[1];

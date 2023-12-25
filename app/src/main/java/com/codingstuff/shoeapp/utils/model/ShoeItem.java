@@ -5,19 +5,20 @@ import android.os.Parcelable;
 
 public class ShoeItem implements Parcelable {
 
-    private String shoeName, shoeBrandName,color,size;
-    private int shoeImage;
+    private String shoeName, shoeBrandName, color, size, available;
+    private int shoeImage, number;
     private double shoePrice;
 
-    public ShoeItem(String shoeName, String shoeBrandName, int shoeImage, double shoePrice, String color, String size) {
+    public ShoeItem(String shoeName, String shoeBrandName, int shoeImage, double shoePrice, String color, String size, String available, int number) {
         this.shoeName = shoeName;
         this.shoeBrandName = shoeBrandName;
         this.shoeImage = shoeImage;
         this.shoePrice = shoePrice;
         this.color = color;
         this.size = size;
+        this.available = available;
+        this.number = number;
     }
-
 
     protected ShoeItem(Parcel in) {
         shoeName = in.readString();
@@ -26,6 +27,8 @@ public class ShoeItem implements Parcelable {
         size = in.readString();
         shoeImage = in.readInt();
         shoePrice = in.readDouble();
+        available = in.readString();
+        number = in.readInt();
     }
 
     public static final Creator<ShoeItem> CREATOR = new Creator<ShoeItem>() {
@@ -43,6 +46,7 @@ public class ShoeItem implements Parcelable {
     public String getShoeName() {
         return shoeName;
     }
+
     public void setShoeName(String shoeName) {
         this.shoeName = shoeName;
     }
@@ -70,6 +74,7 @@ public class ShoeItem implements Parcelable {
     public void setShoePrice(double shoePrice) {
         this.shoePrice = shoePrice;
     }
+
     public String getColor() {
         return color;
     }
@@ -86,6 +91,22 @@ public class ShoeItem implements Parcelable {
         this.size = size;
     }
 
+    public String getAvailable() {
+        return available;
+    }
+
+    public void setAvailable(String available) {
+        this.available = available;
+    }
+
+    public int getAnum() {
+        return number;
+    }
+
+    public void setAnum(int Anum) {
+        this.number = Anum;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -99,5 +120,7 @@ public class ShoeItem implements Parcelable {
         parcel.writeString(size);
         parcel.writeInt(shoeImage);
         parcel.writeDouble(shoePrice);
+        parcel.writeString(available);
+        parcel.writeInt(number);
     }
 }

@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.codingstuff.shoeapp.R;
 import com.codingstuff.shoeapp.utils.model.ShoeItem;
 
-import java.text.CollationElementIterator;
 import java.util.List;
 
 public class ShoeItemAdapter extends RecyclerView.Adapter<ShoeItemAdapter.ShoeItemViewHolder> {
@@ -47,6 +46,8 @@ public class ShoeItemAdapter extends RecyclerView.Adapter<ShoeItemAdapter.ShoeIt
         holder.shoePriceTv.setText(String.valueOf(shoeItem.getShoePrice()));
         holder.shoeImageView.setImageResource(shoeItem.getShoeImage());
         holder.eachShoeColorTv.setText(shoeItem.getColor());
+        holder.AvailbleTv.setText(shoeItem.getAvailable());
+        holder.AnumberTv.setText(String.valueOf(shoeItem.getAnum()));
 
         // Set the adapter for the Spinner
         ArrayAdapter<String> sizeAdapter = new ArrayAdapter<>(holder.itemView.getContext(), android.R.layout.simple_spinner_item, sizeOptions);
@@ -59,17 +60,22 @@ public class ShoeItemAdapter extends RecyclerView.Adapter<ShoeItemAdapter.ShoeIt
         // Set the selection for the Spinner
         holder.eachShoeSizeSpinner.setSelection(sizePosition);
 
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                shoeClickedListeners.onCardClicked(shoeItem);
-            }
-        });
-
         holder.addToCartBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                shoeClickedListeners.onAddToCartBtnClicked(shoeItem);
+                int available = shoeItem.getAnum();
+                if (available > 0) {
+                    available--;
+                    shoeItem.setAnum(available);
+                    holder.AnumberTv.setText(String.valueOf(available));
+
+                    if (available == 0) {
+                        holder.AvailbleTv.setText("Out of Stock");
+                    }
+
+                    notifyItemChanged(holder.getAdapterPosition());
+                    shoeClickedListeners.onAddToCartBtnClicked(shoeItem);
+                }
             }
         });
     }
@@ -90,7 +96,7 @@ public class ShoeItemAdapter extends RecyclerView.Adapter<ShoeItemAdapter.ShoeIt
 
     public class ShoeItemViewHolder extends RecyclerView.ViewHolder {
         private ImageView shoeImageView, addToCartBtn;
-        private TextView shoeNameTv, shoeBrandNameTv, shoePriceTv, eachShoeColorTv;
+        private TextView shoeNameTv, shoeBrandNameTv, shoePriceTv, eachShoeColorTv, AvailbleTv, AnumberTv;
         private Spinner eachShoeSizeSpinner;
         private CardView cardView;
 
@@ -104,6 +110,8 @@ public class ShoeItemAdapter extends RecyclerView.Adapter<ShoeItemAdapter.ShoeIt
             shoePriceTv = itemView.findViewById(R.id.eachShoePriceTv);
             eachShoeColorTv = itemView.findViewById(R.id.eachShoeColorTv);
             eachShoeSizeSpinner = itemView.findViewById(R.id.eachShoeSizeSpinner);
+            AvailbleTv = itemView.findViewById(R.id.available);
+            AnumberTv = itemView.findViewById(R.id.numInSock);
         }
     }
 
